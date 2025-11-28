@@ -1,25 +1,20 @@
-# Use official OpenJDK 17 LTS slim image
-FROM openjdk:17-jdk-slim
-
-# Install Maven dependencies if not using wrapper (optional)
-RUN apt-get update && \
-    apt-get install -y maven && \
-    rm -rf /var/lib/apt/lists/*
+# Use OpenJDK 17 LTS Alpine (smallest size)
+FROM eclipse-temurin:17-jdk-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and project files
+# Copy project
 COPY . .
 
 # Make Maven wrapper executable
 RUN chmod +x mvnw
 
-# Build the Spring Boot jar (skip tests for faster build)
+# Build the jar
 RUN ./mvnw clean package -DskipTests
 
-# Expose port (change if your app uses a different port)
+# Expose port
 EXPOSE 8080
 
-# Run the Spring Boot application
+# Run Spring Boot app
 CMD ["java", "-jar", "target/demo-0.0.1-SNAPSHOT.jar"]
