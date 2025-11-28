@@ -1,5 +1,5 @@
 # Use OpenJDK 20 (or 17 for LTS)
-FROM openjdk:20-jdk-alpine
+FROM openjdk:17-alpine
 
 # Set working directory
 WORKDIR /app
