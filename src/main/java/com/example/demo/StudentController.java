@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -46,6 +47,17 @@ public class StudentController {
         studentService.deleteStudent(id);
         // return "student deleted successfully";
         return Map.of("message", "student deleted successfully");
+    }
+
+    @GetMapping("/get/{id}")
+    public Map<String, Object> getStudentById(@PathVariable int id) {
+        Optional<Student> student = studentService.getStudentById(id);
+
+        if (student.isEmpty()) {
+            return Map.of("error", "Student not found");
+        }
+
+        return Map.of("student", student.get());
     }
 
 }

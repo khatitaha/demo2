@@ -3,6 +3,7 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class Studentservice {
@@ -51,6 +52,10 @@ public class Studentservice {
             throw new RuntimeException("Student not found");
         }
         studentRepository.deleteById(id);
+    }
+
+    public Optional<Student> getStudentById(int id) {
+        return studentRepository.findById(id);
     }
 
 }
